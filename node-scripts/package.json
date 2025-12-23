@@ -1,0 +1,16 @@
+{
+  "name": "beyondchats-node-scripts",
+  "version": "1.0.0",
+  "description": "Script to fetch latest article, search web, scrape references, call LLM and update Laravel API",
+  "main": "fetch_and_rewrite.js",
+  "scripts": {
+    "run": "node fetch_and_rewrite.js",
+    "scrape": "node scrape_beyondchats.js"
+  },
+  "dependencies": {
+    "axios": "^1.4.0",
+    "cheerio": "^1.0.0-rc.12",
+    "openai": "^4.9.0",
+    "dotenv": "^16.0.0"
+  }
+}

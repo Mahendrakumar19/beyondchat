@@ -1,0 +1,43 @@
+# Dependencies
+node_modules/
+vendor/
+
+# Environment files
+.env
+.env.local
+.env.*.local
+
+# Build outputs
+dist/
+build/
+*.log
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Laravel specific
+backend/storage/*.key
+backend/.phpunit.cache
+backend/.env
+backend/.env.backup
+backend/.env.production
+backend/public/hot
+backend/public/storage
+backend/storage/logs/
+backend/bootstrap/cache/*.php
+
+# Database
+*.sqlite
+*.sqlite-journal
+
+# Temporary files
+*.tmp
+.cache/
