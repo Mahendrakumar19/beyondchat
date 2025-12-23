@@ -36,15 +36,18 @@ RUN cp .env.example .env || touch .env
 # Create SQLite database directory and file
 RUN mkdir -p /app/database && \
     touch /app/database/database.sqlite && \
-    chmod -R 775 /app/database && \
-    chmod -R 775 /app/storage && \
-    chmod -R 775 /app/bootstrap/cache
+    mkdir -p /app/storage/framework/cache/data && \
+    mkdir -p /app/storage/framework/sessions && \
+    mkdir -p /app/storage/framework/views && \
+    mkdir -p /app/storage/logs && \
+    chmod -R 777 /app/database && \
+    chmod -R 777 /app/storage && \
+    chmod -R 777 /app/bootstrap/cache
 
 # Expose port
 EXPOSE 8080
 
 # Start application (generate key, run migrations, then serve)
 CMD php artisan config:clear && \
-    php artisan cache:clear && \
     php artisan migrate --force && \
     php artisan serve --host=0.0.0.0 --port=${PORT:-8080}
