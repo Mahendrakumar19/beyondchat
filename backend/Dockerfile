@@ -48,6 +48,7 @@ RUN mkdir -p /app/database && \
 EXPOSE 8080
 
 # Start application (generate key, run migrations, then serve)
-CMD php artisan config:clear && \
+CMD php artisan key:generate --force && \
+    php artisan config:clear && \
     php artisan migrate --force && \
     php artisan serve --host=0.0.0.0 --port=${PORT:-8080}
