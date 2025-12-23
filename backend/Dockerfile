@@ -30,6 +30,9 @@ COPY . /app
 # Install dependencies
 RUN composer install --no-dev --optimize-autoloader --no-interaction
 
+# Copy .env.example to .env (will be overridden by Render env vars)
+RUN cp .env.example .env || touch .env
+
 # Create SQLite database directory and file
 RUN mkdir -p /app/database && \
     touch /app/database/database.sqlite && \
@@ -37,13 +40,11 @@ RUN mkdir -p /app/database && \
     chmod -R 775 /app/storage && \
     chmod -R 775 /app/bootstrap/cache
 
-# Generate application key and run migrations
-RUN php artisan key:generate --force && \
-    php artisan config:cache && \
-    php artisan route:cache
-
 # Expose port
 EXPOSE 8080
 
-# Start application
-CMD php artisan migrate --force && php artisan serve --host=0.0.0.0 --port=${PORT:-8080}
+# Start application (generate key, run migrations, then serve)
+CMD php artisan config:clear && \
+    php artisan cache:clear && \
+    php artisan migrate --force && \
+    php artisan serve --host=0.0.0.0 --port=${PORT:-8080}
