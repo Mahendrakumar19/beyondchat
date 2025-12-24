@@ -30,8 +30,9 @@ COPY . /app
 # Install dependencies
 RUN composer install --no-dev --optimize-autoloader --no-interaction
 
-# Copy .env.example to .env (will be overridden by Render env vars)
-RUN cp .env.example .env || touch .env
+# Don't copy .env - rely on Render environment variables
+# Create a minimal .env with just APP_KEY placeholder
+RUN echo "APP_KEY=" > .env
 
 # Create SQLite database directory and file
 RUN mkdir -p /app/database && \
@@ -47,8 +48,7 @@ RUN mkdir -p /app/database && \
 # Expose port
 EXPOSE 8080
 
-# Start application (generate key, run migrations, then serve)
-CMD php artisan key:generate --force && \
-    php artisan config:clear && \
-    php artisan migrate --force && \
+# Start application (run migrations, then serve)
+# APP_KEY must be set as environment variable in Render
+CMD php artisan migrate --force && \
     php artisan serve --host=0.0.0.0 --port=${PORT:-8080}
