@@ -153,3 +153,6 @@ See [SETUP.md](SETUP.md) for detailed instructions.
 
 ## 🌐 Live Demo
 
+- **Frontend**: https://beyondchat-alpha.vercel.app/
+- **Backend API**: https://beyondchat-9dau.onrender.com/api/articles
+- **GitHub Repository**: https://github.com/Mahendrakumar19/beyondchat
